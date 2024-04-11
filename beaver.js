@@ -1,5 +1,3 @@
-const path = require('path')
-
 const STATUS = {
     INIT: 0,
     INSTALLED: 1,
@@ -33,11 +31,13 @@ module.exports = {
                 href: "update.json"
             }]
         }
-        
-        return {
-            icon: "fa-solid fa-rocket",
-            text: "Start",
-            href: "start.js"
-        }
+
+        return [
+            {
+                icon: "fa-solid fa-rocket",
+                text: "Start",
+                href: "start.js"
+            }
+        ]
     }
 }
