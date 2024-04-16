@@ -63,18 +63,6 @@ module.exports = async ({platform}) => {
             dir: "app/models/Stable-diffusion"
         }
     }, {
-        method: "shell.run",
-        params: {
-            messageFn: function ({platform}) {
-                return platform === 'win32' ? 'webui-user.bat' : 'bash webui.sh -f';
-            },
-            env: {
-                SD_WEBUI_RESTARTING: 1,
-            },
-            path: "app",
-            on: [{"event": "/http:\/\/[0-9.:]+/", "kill": true}]
-        }
-    }, {
         method: "notify",
         params: {
             html: "Click the 'start' tab to launch the app"

@@ -13,7 +13,7 @@ module.exports = ({
             params: {
                 path: "app",
                 messageFn: function ({platform}) {
-                    return platform === 'win32' ? 'webui-user.bat' : 'bash webui.sh -f';
+                    return platform === 'win32' ? 'webui-user.bat' : 'bash webui-beaver.sh -f';
                 },
                 env,
                 on: [{"event": "/http:\/\/[0-9.:]+/", "done": true}]
