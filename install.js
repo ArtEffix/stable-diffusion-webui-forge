@@ -1,4 +1,4 @@
-module.exports = async (platform) => {
+module.exports = async ({platform}) => {
     const script = {}
     if (platform === 'darwin') {
         script.requires = [{
@@ -36,9 +36,7 @@ module.exports = async (platform) => {
                 controlnet: "app/models/ControlNet"
             },
             peers: [
-                "https://github.com/cocktailpeanutlabs/comfyui.git",
-                "https://github.com/cocktailpeanutlabs/fooocus.git",
-                "https://github.com/cocktailpeanutlabs/automatic1111.git",
+                "https://github.com/ArtEffix/comfyui.git",
             ]
         }
     }, {
@@ -49,11 +47,13 @@ module.exports = async (platform) => {
             }
         }
     }, {
-        method: "self.set",
+        method: "json.add",
         params: {
-            "app/ui-config.json": {
-                "txt2img/Sampling steps/value": 1,
-                "txt2img/CFG Scale/value": 1.0
+            json: {
+                "app/ui-config.json": {
+                    "txt2img/Sampling steps/value": 1,
+                    "txt2img/CFG Scale/value": 1.0
+                }
             }
         }
     }, {
@@ -65,7 +65,9 @@ module.exports = async (platform) => {
     }, {
         method: "shell.run",
         params: {
-            message: "{{platform === 'win32' ? 'webui-user.bat' : 'bash webui.sh -f'}}",
+            messageFn: function ({platform}) {
+                return platform === 'win32' ? 'webui-user.bat' : 'bash webui.sh -f';
+            },
             env: {
                 SD_WEBUI_RESTARTING: 1,
             },
